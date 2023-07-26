@@ -18,3 +18,16 @@ Route::get('/', function () {
 });
 
 require __DIR__.'/auth.php';
+
+//Route::post('/login',function (\Illuminate\Support\Facades\Request $request){
+//    auth()->loginUsingId(1);
+//});
+//
+//
+//
+//Route::post('/logout',function (\Illuminate\Support\Facades\Request $request){
+//    auth()->logout();
+//});
+
+
+

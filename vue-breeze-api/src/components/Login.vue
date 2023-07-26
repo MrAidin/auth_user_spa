@@ -19,7 +19,7 @@
             "
                     >
                         <div class="mb-10 text-center md:mb-16">Laraveller</div>
-                        <form @submit.prevent="handleLogin">
+                        <form @submit.prevent="authStore.handleLogin(form)">
                             <div class="mb-6">
                                 <input
                                     type="email"
@@ -40,8 +40,8 @@
                     focus-visible:shadow-none
                   "
                                 />
-                                <div class="flex">
-                                    <span class="text-red-400 text-sm m-2 p-2"></span>
+                                <div v-if="authStore.errors.email" class="flex">
+                                    <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.email[0] }}</span>
                                 </div>
                             </div>
                             <div class="mb-6">
@@ -64,39 +64,28 @@
                     focus-visible:shadow-none
                   "
                                 />
-                                <div class="flex">
-                                    <span class="text-red-400 text-sm m-2 p-2"></span>
+                                <div v-if="authStore.errors.password" class="flex">
+                                    <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.password[0] }}</span>
                                 </div>
                             </div>
                             <div class="mb-10">
                                 <button
                                     type="submit"
                                     class="
-                    w-full
-                    px-4
-                    py-3
-                    bg-indigo-500
-                    hover:bg-indigo-700
-                    rounded-md
-                    text-white
-                  "
+                                    w-full
+                                    px-4
+                                    py-3
+                                    bg-indigo-500
+                                    hover:bg-indigo-700
+                                    rounded-md
+                                    text-white
+                                       "
                                 >
                                     Login
 
                                 </button>
                             </div>
                         </form>
-                        <router-link
-                            to="/forgot-password"
-                            class="
-                mb-2
-                inline-block
-                text-base text-[#adadad]
-                hover:text-primary hover:underline
-              "
-                        >
-                            Forgot Password?
-                        </router-link>
                         <p class="text-base text-[#adadad]">
                             Not a member yet?
                             <router-link to="/register" class="text-primary hover:underline">
@@ -112,23 +101,14 @@
 
 <script setup>
 import {ref} from 'vue';
-import axios from 'axios';
-import {useRouter} from 'vue-router';
+import {useAuthStore} from "../stores/auth.js";
 
-const router = useRouter();
+const authStore = useAuthStore();
+
 const form = ref({
     email: '',
     password: '',
 });
-const getToken = async () => {
-    await axios.get('/sanctum/csrf-cookie');
-}
-const handleLogin = async () => {
-   await getToken();
-    await axios.post('/login', {
-        email: form.value.email,
-        password: form.value.password
-    });
-    router.push("/");
-}
+
+
 </script>

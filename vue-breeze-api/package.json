@@ -12,7 +12,9 @@
     "axios": "^1.4.0",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-progressbar": "^0.7.5",
+    "vue-router": "^4.2.4",
+    "vue-top-progress": "^0.7.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

@@ -24,18 +24,25 @@
                             Home
                         </RouterLink>
                     </li>
-                    <li>
-                        <RouterLink :to="{name:'Login'}"
-                                    class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Login
-                        </RouterLink>
-                    </li>
-                    <li>
-                        <RouterLink :to="{name:'Register'}"
-                                    class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Register
-                        </RouterLink>
-                    </li>
+                   <template v-if="!authStore.user">
+                       <li>
+                           <RouterLink :to="{name:'Login'}"
+                                       class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                               Login
+                           </RouterLink>
+                       </li>
+                       <li>
+                           <RouterLink :to="{name:'Register'}"
+                                       class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                               Register
+                           </RouterLink>
+                       </li>
+                   </template>
+                    <template v-else>
+                        <button @click="authStore.handleLogout" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            Logout
+                        </button>
+                    </template>
 
                 </ul>
             </div>
@@ -44,10 +51,8 @@
 
 </template>
 
-<script>
-export default {
-    name: "Nav",
-    components: {}
+<script setup>
+import {useAuthStore} from "../stores/auth.js";
 
-}
+const authStore = useAuthStore();
 </script>
